@@ -1,5 +1,5 @@
 import './App.css';
-import MainInterface from './map_components/MainInterface';
+import MainInterface from './EleNA_MainInterface/MainInterface';
 
 function App() {
   return (
