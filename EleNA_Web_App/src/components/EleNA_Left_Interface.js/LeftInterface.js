@@ -5,16 +5,20 @@ import Toggle from '../EleNA_Toggle/Toggle'
 
 
 class SampleForm extends React.Component {
+
     constructor(props) {
         super(props);
+        this.ChildElement = React.createRef();
         this.state = {
           source: "",
           destination: "",
+          slider: 50,
           json :[],
         };
     
         this.handleSourceChange = this.handleSourceChange.bind(this);
         this.handleDestinationChange = this.handleDestinationChange.bind(this);
+        this.handleSliderChange = this.handleSliderChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSourceChange(event) {
@@ -28,15 +32,22 @@ class SampleForm extends React.Component {
         destination: event.target.value,
       });
     }
-  
+
+    handleSliderChange(event) {
+      this.setState({
+        slider: event.target.valueAsNumber,
+      });
+    }
     
       handleSubmit(event) {
         alert('Source: ' + this.state.source, 'and Destination : ' + this.state.destination, ' are submitted');
         event.preventDefault();
-        this.setState({ value: event.target.value });
+        this.setState({value: event.target.value });
 		    var source = document.getElementById('source').value;
         var destination = document.getElementById('destination').value;
+        // var sliderValue = document.getElementById('this.state.slider').value;
         console.log('Source: ' + source, 'and Destination : ' + destination, ' are submitted');
+        console.log(this.state.slider)
   
     }
     render() {
@@ -48,6 +59,7 @@ class SampleForm extends React.Component {
                 <input type="text" 
                     classname = "source" 
                     id ="source" 
+                    
                     autoFocus
                     placeholder="Enter source" 
                     onChange={this.handleSourceChange}
@@ -60,6 +72,7 @@ class SampleForm extends React.Component {
               <input type="text" 
                     classname = "destination" 
                     id ="destination" 
+                    
                     autoFocus
                     placeholder="Enter destination"  
                     value={this.state.destination} 
@@ -68,7 +81,7 @@ class SampleForm extends React.Component {
             </div>
             <div className="row">
                 <div className="Slider">
-                    <PercentageSlider/>
+                <PercentageSlider onChange={this.handleSliderChange} value={this.state.slider} />
                 </div>
             </div>
             <div className="row">
@@ -81,9 +94,7 @@ class SampleForm extends React.Component {
             </div>
           </form>
         );
-    }
-
-      
+    }      
 }
 
 export default SampleForm;
