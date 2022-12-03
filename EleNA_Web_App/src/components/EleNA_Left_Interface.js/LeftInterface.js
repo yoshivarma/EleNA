@@ -31,13 +31,13 @@ class SampleForm extends React.Component {
   
     
       handleSubmit(event) {
-        alert('Values are submitted: ' + this.state.destination, + this.state.source);
+        alert('Source: ' + this.state.source, 'and Destination : ' + this.state.destination, ' are submitted');
         event.preventDefault();
         this.setState({ value: event.target.value });
 		    var source = document.getElementById('source').value;
         var destination = document.getElementById('destination').value;
-        console.log(source);
-        console.log(destination);
+        console.log('Source: ' + source, 'and Destination : ' + destination, ' are submitted');
+  
     }
     render() {
         return (
