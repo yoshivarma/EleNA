@@ -7,18 +7,37 @@ import Toggle from '../EleNA_Toggle/Toggle'
 class SampleForm extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {value: ''};
+        this.state = {
+          source: "",
+          destination: "",
+          json :[],
+        };
     
-        this.handleChange = this.handleChange.bind(this);
+        this.handleSourceChange = this.handleSourceChange.bind(this);
+        this.handleDestinationChange = this.handleDestinationChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    handleChange(event) {
-        this.setState({value: event.target.value});
+    handleSourceChange(event) {
+      this.setState({
+        source: event.target.value,
+      });
     }
+  
+      handleDestinationChange(event) {
+      this.setState({
+        destination: event.target.value,
+      });
+    }
+  
     
       handleSubmit(event) {
-        alert('A name was submitted: ' + this.state.value);
+        alert('Values are submitted: ' + this.state.destination, + this.state.source);
         event.preventDefault();
+        this.setState({ value: event.target.value });
+		    var source = document.getElementById('source').value;
+        var destination = document.getElementById('destination').value;
+        console.log(source);
+        console.log(destination);
     }
     render() {
         return (
@@ -26,13 +45,25 @@ class SampleForm extends React.Component {
             <div className="row">
               <label>
                 Source:
-                <input type="text" value={this.state.value} onChange={this.handleChange} />
+                <input type="text" 
+                    classname = "source" 
+                    id ="source" 
+                    autoFocus
+                    placeholder="Enter source" 
+                    onChange={this.handleSourceChange}
+                    value={this.state.source} required />
               </label>
             </div>
             <div className="row">
             <label>
               Destination:
-              <input type="text" value={this.state.value} onChange={this.handleChange} />
+              <input type="text" 
+                    classname = "destination" 
+                    id ="destination" 
+                    autoFocus
+                    placeholder="Enter destination"  
+                    value={this.state.destination} 
+                    onChange={this.handleDestinationChange} required/>
             </label>
             </div>
             <div className="row">
