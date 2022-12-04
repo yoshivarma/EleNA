@@ -1,16 +1,29 @@
 import React from "react";
+import './Toggle.css';
 
-const ButtonGroup = () => {
+// const ButtonGroup = () => {
+//   return (
+//     <div>
+//       <button>Min</button>
+//       <button>None</button>
+//       <button>Max</button>
+//     </div>
+//   )
+// }
+
+// export default ButtonGroup;
+
+const Toggle = ({ toggle, handleToggleChange }) => {
   return (
-    <div>
-      <button>Min</button>
-      <button>None</button>
-      <button>Max</button>
+    <div className='toggle-container' onClick={handleToggleChange}>
+      <div className={`toggle-btn ${!toggle ? "disable" : ""}`}>
+        {toggle ? "ON" : "OFF"}
+      </div>
     </div>
-  )
-}
+  );
+};
 
-export default ButtonGroup;
+export default Toggle;
 
 // import React from 'react'
 // import {PendingButton} from 'react-tri-button'
