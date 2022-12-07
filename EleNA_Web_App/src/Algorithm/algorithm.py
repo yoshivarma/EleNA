@@ -111,7 +111,7 @@ class Model:
         if max_elev-min_elev > max_ele_gain:
           max_ele_gain = max_elev-min_elev
           lat_long = new_list
-      return lat_long, max_ele_gain
+      return graph1, lat_long, max_ele_gain
 
 
 def Route_Statistics(start, end, k, minimum_elevation):
@@ -122,5 +122,12 @@ def Route_Statistics(start, end, k, minimum_elevation):
     # minimum_elevation = False
     # k = 140
     model = Model(city, state, start, end, k, minimum_elevation)
-    lat_long, max_ele_gain = model.Route(city, state, start, end, k, minimum_elevation)
-    return lat_long, max_ele_gain
+    graph1, lat_long, max_ele_gain = model.Route(city, state, start, end, k, minimum_elevation)
+    nodes = list()
+    for i in lat_long:
+      nodes.append(ox.nearest_nodes(graph1, i[1], i[0], True)[0])
+    total_distance = ox.utils_graph.get_route_edge_attributes(graph1, nodes, 'length')
+    # print(nodes)
+    # print(sum(total_distance))
+    # print( total_distance)
+    return lat_long, max_ele_gain, sum(total_distance)
