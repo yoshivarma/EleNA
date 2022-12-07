@@ -1,13 +1,13 @@
 .Container {
     display: grid; 
 }
-.Left_Form {
-    width: 30%;
+.col-4 {
+    width: 35%;
     float: left;
     color:black
 }
-.MapDisplay {
-    width: 70%;
+.col-8 {
+    width: 65%;
     float: right;
 }
 

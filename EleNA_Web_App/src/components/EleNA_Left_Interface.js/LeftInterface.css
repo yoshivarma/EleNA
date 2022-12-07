@@ -19,7 +19,6 @@
     flex: 3;
     background-color: lightblue
 }
-
 .right-panel {
     flex: 2;
     background-color: lightgreen;
@@ -27,4 +26,9 @@
 
 .box {
     border: 1px solid black;
+}
+
+.navbar-brand{
+    box-shadow: 0px 2px 5px #777;
+
 }

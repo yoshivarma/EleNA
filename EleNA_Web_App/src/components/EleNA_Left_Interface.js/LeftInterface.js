@@ -31,7 +31,7 @@ class SampleForm extends React.Component {
       this.setState({source: event.target.value});
     }
   
-      handleDestinationChange(event) {
+    handleDestinationChange(event) {
       this.setState({destination: event.target.value});
     }
 
@@ -64,8 +64,15 @@ class SampleForm extends React.Component {
 
     render() {
         return (
-            <>
-            <h3 className="mt-2">EleNA</h3>
+            <>            
+            {/* <h3 className="mt-2">EleNA</h3> */}
+          <nav class="navbar navbar-expand-md navbar-red" >
+            <a class="navbar-brand" href="#">
+              <img src="hiking.png" width="30" height="25" class="d-inline-block align-top" alt="logo"/>
+              EleNA
+            </a>
+          </nav>
+            <div class="row align-items-center">
             <div className="ms-2">
                 <div className="form-floating mt-2">
                     <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required/>
@@ -85,6 +92,7 @@ class SampleForm extends React.Component {
                 <div className="mt-2">
                     <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
                 </div>
+            </div>
             </div>
             </>
         );
