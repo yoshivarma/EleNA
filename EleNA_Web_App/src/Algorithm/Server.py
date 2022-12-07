@@ -2,7 +2,7 @@ import os
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
 from geopy import Nominatim
-from algorithm import Model
+from algorithm import Route_Statistics
 import json
 
 app = Flask(__name__)
@@ -29,31 +29,36 @@ geolocator = Nominatim(user_agent="elena")
 #     res.end("Welcome to Geeks For Geeks")
 # });
 
-@app.route("/get_route", methods=["GET"])
+@app.route("/get_route", methods=['POST'])
 def get_route():
     content = request.get_json()
-
-    source = content["Source"]
-    destination = content["Destination"]
-    max_min = (content["Max_min"] == "max")
-    percentage = float(content["Percentage"])
+    source = content['source']
+    destination = content['destination']
+    elevation_type = (content['elevationType'] == "min")
+    percentage = int(content['percentage'])
 
     # # convert the source,destination addresses to lat,lng coordinates
     # source_lat, source_lng = convert_addresss_to_lat_lng(source)
     # dest_lat, dest_lng = convert_addresss_to_lat_lng(destination)
 
-    # get the city, country of the source
-    address_split = source.split(",")
-    city = address_split[1].strip()
-    state = address_split[2].strip()
+    # get the city, country of the sourcef
+    # print(source)
+    # address_split = source.split(",")
+    # print(address_split)
+    city = "Amherst"
+    state = "MA"
     # city, state = get_city_country(source)
-    print(city, state)
 
     # find the best path between source & destination based on elevation
-    route, total_distance, total_elevation = Model.Route(city, state, source, destination, percentage, max_min)
+    route = Route_Statistics(source, destination, percentage, elevation_type)
+    # route = [1,2,3]
+    total_distance = 0
+    total_elevation = 0
     print(route)
-    print(total_distance)
-    print(total_elevation)
+    print(source)
+    print(destination)
+    print(elevation_type, type(elevation_type))
+    print(percentage)
 
      # send a response back (w/ the route)
     response = jsonify({"Distance": total_distance, "Elevation Gain": total_elevation})#jsonify({'Route': route, "Distance": total_distance, "Elevation Gain": total_elevation})
@@ -63,4 +68,4 @@ def get_route():
 
 
 if __name__ == "__main__":
-    app.run(port=9000)
+    app.run(debug = True, port=9000)

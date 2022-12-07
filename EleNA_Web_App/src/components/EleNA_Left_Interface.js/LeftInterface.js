@@ -40,27 +40,30 @@ class SampleForm extends React.Component {
     }
       
     handleSubmit(event) {
-        fetch("http://localhost:9000/get_route", {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Access-Control-Allow-Origin':'*'
-            },
-            body: JSON.stringify({
-                source: this.state.source,
-                destination: this.state.destination,
-                percentage: this.state.percentage,
-                elevationType: this.state.elevationType
-            })
-        }).then(res => res.json()).then(json => {
-            this.setState({
-            route: json["Route"],
-            renderRoute: true,
-            distance: json["Distance"],
-            elevation: json["Elevation Gain"]
+
+        fetch("http://127.0.0.1:9000/get_route", {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin':'*'
+        },
+        body: JSON.stringify({
+          source: this.state.source,
+          destination: this.state.destination,
+          percentage: this.state.percentage,
+          elevationType: this.state.elevationType
         })
-        })
-    }
+      })
+      .then(res => res.json())
+      .then(json => {
+        this.setState({
+          route: json["Route"],
+          renderRoute: true,
+          distance: json["Distance"],
+          elevation: json["Elevation Gain"]
+        });
+    });
+  }
 
     render() {
         return (
