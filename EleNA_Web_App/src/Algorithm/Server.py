@@ -61,7 +61,7 @@ def get_route():
     print(percentage)
 
      # send a response back (w/ the route)
-    response = jsonify({"Distance": total_distance, "Elevation Gain": total_elevation})#jsonify({'Route': route, "Distance": total_distance, "Elevation Gain": total_elevation})
+    response = jsonify({'Route': route, "Distance": total_distance, "Elevation Gain": total_elevation})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

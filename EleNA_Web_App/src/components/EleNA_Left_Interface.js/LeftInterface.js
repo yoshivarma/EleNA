@@ -56,6 +56,9 @@ class SampleForm extends React.Component {
       })
       .then(res => res.json())
       .then(json => {
+        console.log(json["Route"]);
+        console.log(json["Distance"],json["Elevation Gain"]);
+        
         this.setState({
           route: json["Route"],
           renderRoute: true,
