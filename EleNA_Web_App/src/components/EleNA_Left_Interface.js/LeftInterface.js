@@ -5,122 +5,90 @@ import PercentageSlider from '../EleNA_Slidder/Slider';
 
 class SampleForm extends React.Component {
  
-  constructor(props) {
+    constructor(props) {
         super(props);
-        this.ChildElement = React.createRef();
-        
+
         this.state = {
-          source: "",
-          destination: "",
-          slider: 50,
-          toggle: "",
-          isToggleOn: false,
-          json :[],
+            source: "",
+            destination: "",
+            percentage: 50,
+            elevationType: "MIN",
+            json: [],
         };
     
         this.handleSourceChange = this.handleSourceChange.bind(this);
         this.handleDestinationChange = this.handleDestinationChange.bind(this);
         this.handleSliderChange = this.handleSliderChange.bind(this);
-        // this.handleToggleChange = this.handleToggleChange.bind(this);
-        this.handleClick = this.handleClick.bind(this);
+        this.setElevationType = this.setElevationType.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    setElevationType(type){
+        this.setState({elevationType: type});
+    }
+
     handleSourceChange(event) {
-      this.setState({
-        source: event.target.value,
-      });
+      this.setState({source: event.target.value});
     }
   
       handleDestinationChange(event) {
-      this.setState({
-        destination: event.target.value,
-      });
+      this.setState({destination: event.target.value});
     }
 
     handleSliderChange(event) {
-      this.setState({
-        slider: event.target.valueAsNumber,
-      });
-    }
-
-    // handleToggleChange(event) {
-    //   this.setState({
-    //     toggle: event.target.value,
-    //   })
-    // }
-
-    handleClick(event) {
-      this.setState ({
-        isToggleOn: !this.state.isToggleOn,
-      })
+      this.setState({percentage: event.target.valueAsNumber});
     }
       
-      handleSubmit(event) {
-        alert('Source: ' + this.state.source, 'and Destination : ' + this.state.destination, ' are submitted');
-        event.preventDefault();
-        this.setState({value: event.target.value });
-		    var source = document.getElementById('source').value;
-        var destination = document.getElementById('destination').value;
-        // var sliderValue = document.getElementById('this.state.slider').value;
-        console.log('Source: ' + source, 'and Destination : ' + destination, ' are submitted');
-        console.log(this.state.slider)
-        // console.log(this.state.toggle)
-        console.log(this.state.isToggleOn)
-  
+    handleSubmit(event) {
+        fetch("http://localhost:9000/get_route", {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'Access-Control-Allow-Origin':'*'
+            },
+            body: JSON.stringify({
+                source: this.state.source,
+                destination: this.state.destination,
+                percentage: this.state.percentage,
+                elevationType: this.state.elevationType
+            })
+        }).then(res => res.json()).then(json => {
+            this.setState({
+            route: json["Route"],
+            renderRoute: true,
+            distance: json["Distance"],
+            elevation: json["Elevation Gain"]
+        })
+        })
     }
+
     render() {
         return (
-          <form onSubmit={this.handleSubmit}>
-            <div className="row">
-              <label>
-                Source:
-                <input type="text" 
-                    classname = "source" 
-                    id ="source" 
-                    
-                    autoFocus
-                    placeholder="Enter source" 
-                    onChange={this.handleSourceChange}
-                    value={this.state.source} required />
-              </label>
-            </div>
-            <div className="row">
-            <label>
-              Destination:
-              <input type="text" 
-                    classname = "destination" 
-                    id ="destination" 
-                    
-                    autoFocus
-                    placeholder="Enter destination"  
-                    value={this.state.destination} 
-                    onChange={this.handleDestinationChange} required/>
-            </label>
-            </div>
-            <div className="row">
-                <div className="Slider">
-                <PercentageSlider onChange={this.handleSliderChange} value={this.state.slider} />
+            <>
+            <h3 className="mt-2">EleNA</h3>
+            <div className="ms-2">
+                <div className="form-floating mt-2">
+                    <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required/>
+                    <label htmlFor="source">Enter Source</label>
+                </div>
+                <div className="form-floating mt-2">
+                    <input type="text" id="destination" className="destination form-control" placeholder="Enter Destination" onChange={this.handleDestinationChange} value={this.state.destination} required/>
+                    <label htmlFor="destination">Enter Destination</label>
+                </div>
+                <div className="mt-2">
+                    <PercentageSlider onChange={this.handleSliderChange} value={this.state.percentage}/>
+                </div>
+                <div className="mt-2">
+                    <input className={this.state.elevationType === "MIN" ? "btn btn-primary" : "btn btn-light"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
+                    <input className={this.state.elevationType === "MAX" ? "btn btn-primary" : "btn btn-light"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
+                </div>
+                <div className="mt-2">
+                    <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
                 </div>
             </div>
-            {/* <div className="row">
-                <div className="Toggle">
-                <Toggle onChange={this.handleToggleChange} value={this.state.toggle}/>
-                </div>
-            </div> */}
-            <div className="row">
-                
-                {/* <Toggle onChange={this.handleToggleChange} value={this.state.toggle}/> */}
-                <button type="button" onClick={this.handleClick}>
-                {this.state.isToggleOn ? "MIN" : "MAX" }
-                </button>
-                <br/>                
-            </div>
-            <div className="row">
-              <input type="submit" value="Submit" onClick={this.handleSubmit}/>
-            </div>
-          </form>
+            </>
         );
     }      
 }
 
-export default SampleForm;
+export default SampleForm
