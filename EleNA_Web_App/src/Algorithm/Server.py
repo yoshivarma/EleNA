@@ -34,7 +34,7 @@ def get_route():
     content = request.get_json()
     source = content['source']
     destination = content['destination']
-    elevation_type = (content['elevationType'] == "min")
+    elevation_type = (content['elevationType'] == "MIN")
     percentage = int(content['percentage'])
 
     # # convert the source,destination addresses to lat,lng coordinates

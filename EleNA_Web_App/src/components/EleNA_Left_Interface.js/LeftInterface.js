@@ -1,6 +1,8 @@
 import React from 'react';
 import './LeftInterface.css';
 import PercentageSlider from '../EleNA_Slidder/Slider';
+import Form from 'react-bootstrap/Form'
+
 // import Toggle from '../EleNA_Toggle/Toggle'
 
 class LeftForm extends React.Component {
@@ -12,7 +14,7 @@ class LeftForm extends React.Component {
             source: "",
             destination: "",
             percentage: 50,
-            elevationType: "min",
+            elevationType: "MIN",
             json: [],
             renderRoute: false,
             submitted: false
@@ -64,61 +66,67 @@ class LeftForm extends React.Component {
         this.setState({
           route: json["Route"],
           renderRoute: true,
-          submitted: false,
+          submitted: this.state.submitted,
           distance: json["Distance"],
           elevation: json["Elevation Gain"]
         })
         this.props.updateRoute(json["Route"])
     })
-  }
+  }j
 
     render() {
         return (
-          <>
-          <div className="ms-0 me-0 mt-2">          
+          <form onSubmit={this.handleSubmit}>
+          <div className="ms-2 me-2 mt-2">          
             {/* <h3 className="mt-2">EleNA</h3> */}
             <nav class="navbar" display= "inline-block">
-              <a class="navbar-brand" href="#" >
-                <img src="hiking.png" width="30" height="30" color= "white" class="d-inline-block align-top" alt="logo"/>
-                EleNA
-              </a>
+              {/* <a class="navbar-brand" href="#" > */}
+                <img src="hiking.png" width="120" height="120" color= "white" class="shadow" alt="logo"/>
+              {/* </a> */}
             </nav>
           </div>
           
-          <div class="d-grid gap-1 mt-5">
-            <div className="mt-1 min-vh-10">
+          <div class="d-grid gap-1">
+            <div className="mt-1 ms-2 me-2">
                 <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required />
                 {/* <label htmlFor="source">Enter Source</label> */}
             </div>
-            <div className="mt-1 min-vh-10">
+            <div className="mt-1 ms-2 me-2">
                 <input type="text" id="destination" className="destination form-control" placeholder="Enter Destination" onChange={this.handleDestinationChange} value={this.state.destination} required/>
                 {/* <label htmlFor="destination">Enter Destination</label> */}
             </div>
           </div>
 
-          <div className="ms-5 me-5">
-            <div className="d-flex flex-column justify-content-center">
-              <div className="mt-1">
+          <div className="set_margin ms-5 me-5 mt-5">
+            <div className="d-flex flex-column justify-content-center ms-5 me-5 mt-5">
+              <div className="mt-3">
                   <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
                   <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
               </div>
-              <div className="mt-1">
+              <div className="mt-3">
                   <PercentageSlider onChange={this.handleSliderChange} value={this.state.percentage}/>
               </div>
-              <div className="mt-1">
+              <div className="mt-3">
                   <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
               </div>
-              <div> 
-                {!this.state.renderRoute && this.state.submitted ? "Calculating!!!":
-                [<div>
-                  {/* {this.props.updateRoute(this.state.route)} */}
-                <b>Total Distance:</b>  {this.state.distance},
-                <b>Total elevation:</b> {this.state.elevation}
-                </div>]}
-              </div>
             </div>
+
+            <div> 
+              {!this.state.renderRoute && this.state.submitted ? "Calculating!!!":
+              [<div>
+                {/* {this.props.updateRoute(this.state.route)} */}
+                <div className='statistics'>
+                  <input type="text" size="20" placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
+                  <input type="text" size="20" placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
+                </div>
+              
+                {/* <b>Total Distance:</b>  {this.state.distance},
+                <b>Total elevation:</b> {this.state.elevation} */}
+              </div>]}
+            </div>
+            
           </div>
-          </>
+          </form>
         );
     }      
 }

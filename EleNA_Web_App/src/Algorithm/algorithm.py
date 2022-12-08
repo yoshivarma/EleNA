@@ -59,8 +59,40 @@ class Model:
           n = graph1.nodes[x]
           lat = n['y']
           longi = n['x']
-          lat_long.append((lat,longi))
-      return lat_long
+          lat_long.append((longi,lat))
+      #CONSTRUCT JSON
+      d_ar=[{}]*len(lat_long)
+      for i in range(len(lat_long)):
+          d_ar[i]={"latitude":lat_long[i][1],"longitude":lat_long[i][0]}
+      location={"locations":d_ar}
+      json_data=json.dumps(location,skipkeys=int).encode('utf8')
+
+      #SEND REQUEST 
+      url="https://api.open-elevation.com/api/v1/lookup"
+      response = urllib.request.Request(url,json_data,headers={'Content-Type': 'application/json'})
+      fp = urllib.request.urlopen(response)
+      #RESPONSE PROCESSING
+      res_byte=fp.read()
+      res_str=res_byte.decode("utf8")
+      js_str=json.loads(res_str)
+      #print (js_mystr)
+      fp.close()
+
+      #GETTING ELEVATION 
+      print(js_str)
+      response_len=len(js_str['results'])
+      elev_list=[]
+      for j in range(response_len):
+          elev_list.append(js_str['results'][j]['elevation'])
+
+      
+      #BASIC STAT INFORMATION
+      mean_elev=round((sum(elev_list)/len(elev_list)),3)
+      min_elev=min(elev_list)
+      max_elev=max(elev_list)
+      max_ele_gain = max_elev-min_elev
+      
+      return graph1, lat_long, max_ele_gain
 
     else:
       list_lat_long = list()
@@ -127,7 +159,7 @@ def Route_Statistics(start, end, k, minimum_elevation):
     for i in lat_long:
       nodes.append(ox.nearest_nodes(graph1, i[0], i[1], True)[0])
     total_distance = ox.utils_graph.get_route_edge_attributes(graph1, nodes, 'length')
-    # print(nodes)
+    #print(max_ele_gain)
     # print(sum(total_distance))
     # print( total_distance)
     return lat_long, max_ele_gain, sum(total_distance)
