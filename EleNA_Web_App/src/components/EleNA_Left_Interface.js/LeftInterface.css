@@ -4,31 +4,48 @@
     background-color: lightgrey;
     font-size: 64px;
 }
-
-.row {
-    display: flex;
-    height: 100%;
-}
-
-.left-panel {
-    flex: 5;
-    background-color: lightyellow;
-}
-
-.middle-panel {
-    flex: 3;
-    background-color: lightblue
-}
-.right-panel {
-    flex: 2;
-    background-color: lightgreen;
+.Container{
+    background-color: black;
 }
 
 .box {
     border: 1px solid black;
 }
 
-.navbar-brand{
+.navbar .navbar-brand{
     box-shadow: 0px 2px 5px #777;
+    text-decoration: overline;
+    color: #e9ecef;
+    font-size: larger;
+}
+.col-4 .navbar{
+    --bs-navbar-brand-padding-y: 0rem;
+    --bs-navbar-brand-hover-color: #e9ecef;
+    --bs-navbar-brand-hover-color: white;
+    text-decoration: overline;
+    color: #e9ecef;
+    font-size: larger;
+    display: inline-block;
+}
 
+.col-4 .ms-5{
+    margin-top: 5rem;
+    margin-left: 5rem;
+    margin-right: 5rem;
+}
+
+.mt-1 {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    height: auto;
+    padding-top: 0px;
+}
+
+.ms-5 .mt-1 .btn-sm {
+    --bs-btn-padding-y: 0rem;
+    --bs-btn-padding-x: 0rem;
+    --bs-btn-font-size: 0.875rem;
+    --bs-btn-border-radius: 0.25rem;
 }

@@ -56,10 +56,14 @@ def get_route():
     print(route)
     print(max_ele_gain)
     print(total_distance)
+    print(elevation_type)
 
-
+    result = []
+    # x=[0, 1, 2]
+    for i in range(len(route)-1):
+        result.append((route[i], route[i+1]))
      # send a response back (w/ the route)
-    response = jsonify({'Route': route, "Distance": total_distance, "Elevation Gain": max_ele_gain})
+    response = jsonify({'Route': result, "Distance": total_distance, "Elevation Gain": max_ele_gain})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 

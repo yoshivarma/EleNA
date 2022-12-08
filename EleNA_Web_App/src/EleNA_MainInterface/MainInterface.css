@@ -1,13 +1,16 @@
-.Container {
-    display: grid; 
-}
 .col-4 {
     width: 35%;
-    float: left;
-    color:black
+    color:gray;
+    background-color: black;
 }
 .col-8 {
     width: 65%;
     float: right;
 }
+
+/* .Container{
+      background-color: black;
+      display: grid; 
+      display: inline;
+  } */
 

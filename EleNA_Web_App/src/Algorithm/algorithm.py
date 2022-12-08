@@ -75,7 +75,7 @@ class Model:
             n = graph1.nodes[x]
             lat = n['y']
             longi = n['x']
-            lat_long.append((lat,longi))
+            lat_long.append((longi, lat))
         list_lat_long.append(lat_long)
       #find elevation gain for all 150 routes
       max_ele_gain = -10000000
@@ -83,7 +83,7 @@ class Model:
         #CONSTRUCT JSON
         d_ar=[{}]*len(new_list)
         for i in range(len(new_list)):
-            d_ar[i]={"latitude":new_list[i][0],"longitude":new_list[i][1]}
+            d_ar[i]={"latitude":new_list[i][1],"longitude":new_list[i][0]}
         location={"locations":d_ar}
         json_data=json.dumps(location,skipkeys=int).encode('utf8')
 
@@ -125,7 +125,7 @@ def Route_Statistics(start, end, k, minimum_elevation):
     graph1, lat_long, max_ele_gain = model.Route(city, state, start, end, k, minimum_elevation)
     nodes = list()
     for i in lat_long:
-      nodes.append(ox.nearest_nodes(graph1, i[1], i[0], True)[0])
+      nodes.append(ox.nearest_nodes(graph1, i[0], i[1], True)[0])
     total_distance = ox.utils_graph.get_route_edge_attributes(graph1, nodes, 'length')
     # print(nodes)
     # print(sum(total_distance))

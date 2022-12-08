@@ -3,7 +3,7 @@ import './LeftInterface.css';
 import PercentageSlider from '../EleNA_Slidder/Slider';
 // import Toggle from '../EleNA_Toggle/Toggle'
 
-class SampleForm extends React.Component {
+class LeftForm extends React.Component {
  
     constructor(props) {
         super(props);
@@ -12,8 +12,10 @@ class SampleForm extends React.Component {
             source: "",
             destination: "",
             percentage: 50,
-            elevationType: "MIN",
+            elevationType: "min",
             json: [],
+            renderRoute: false,
+            submitted: false
         };
     
         this.handleSourceChange = this.handleSourceChange.bind(this);
@@ -40,7 +42,7 @@ class SampleForm extends React.Component {
     }
       
     handleSubmit(event) {
-
+        this.setState({submitted: true})
         fetch("http://127.0.0.1:9000/get_route", {
           method: 'POST',
           headers: {
@@ -56,53 +58,69 @@ class SampleForm extends React.Component {
       })
       .then(res => res.json())
       .then(json => {
-        console.log(json["Route"]);
-        console.log(json["Distance"],json["Elevation Gain"]);
+        console.log("initial json route",json["Route"]);
+        // console.log(json["Distance"],json["Elevation Gain"]);
         
         this.setState({
           route: json["Route"],
           renderRoute: true,
+          submitted: false,
           distance: json["Distance"],
           elevation: json["Elevation Gain"]
-        });
-    });
+        })
+        this.props.updateRoute(json["Route"])
+    })
   }
 
     render() {
         return (
-            <>            
+          <>
+          <div className="ms-0 me-0 mt-2">          
             {/* <h3 className="mt-2">EleNA</h3> */}
-          <nav class="navbar navbar-expand-md navbar-red" >
-            <a class="navbar-brand" href="#">
-              <img src="hiking.png" width="30" height="25" class="d-inline-block align-top" alt="logo"/>
-              EleNA
-            </a>
-          </nav>
-            <div class="row align-items-center">
-            <div className="ms-2">
-                <div className="form-floating mt-2">
-                    <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required/>
-                    <label htmlFor="source">Enter Source</label>
-                </div>
-                <div className="form-floating mt-2">
-                    <input type="text" id="destination" className="destination form-control" placeholder="Enter Destination" onChange={this.handleDestinationChange} value={this.state.destination} required/>
-                    <label htmlFor="destination">Enter Destination</label>
-                </div>
-                <div className="mt-2">
-                    <PercentageSlider onChange={this.handleSliderChange} value={this.state.percentage}/>
-                </div>
-                <div className="mt-2">
-                    <input className={this.state.elevationType === "MIN" ? "btn btn-primary" : "btn btn-light"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
-                    <input className={this.state.elevationType === "MAX" ? "btn btn-primary" : "btn btn-light"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
-                </div>
-                <div className="mt-2">
-                    <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
-                </div>
+            <nav class="navbar" display= "inline-block">
+              <a class="navbar-brand" href="#" >
+                <img src="hiking.png" width="30" height="30" color= "white" class="d-inline-block align-top" alt="logo"/>
+                EleNA
+              </a>
+            </nav>
+          </div>
+          
+          <div class="d-grid gap-1 mt-5">
+            <div className="mt-1 min-vh-10">
+                <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required />
+                {/* <label htmlFor="source">Enter Source</label> */}
             </div>
+            <div className="mt-1 min-vh-10">
+                <input type="text" id="destination" className="destination form-control" placeholder="Enter Destination" onChange={this.handleDestinationChange} value={this.state.destination} required/>
+                {/* <label htmlFor="destination">Enter Destination</label> */}
             </div>
-            </>
+          </div>
+
+          <div className="ms-5 me-5">
+            <div className="d-flex flex-column justify-content-center">
+              <div className="mt-1">
+                  <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
+                  <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
+              </div>
+              <div className="mt-1">
+                  <PercentageSlider onChange={this.handleSliderChange} value={this.state.percentage}/>
+              </div>
+              <div className="mt-1">
+                  <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
+              </div>
+              <div> 
+                {!this.state.renderRoute && this.state.submitted ? "Calculating!!!":
+                [<div>
+                  {/* {this.props.updateRoute(this.state.route)} */}
+                <b>Total Distance:</b>  {this.state.distance},
+                <b>Total elevation:</b> {this.state.elevation}
+                </div>]}
+              </div>
+            </div>
+          </div>
+          </>
         );
     }      
 }
 
-export default SampleForm
+export default LeftForm
