@@ -1,49 +1,56 @@
 import React from 'react';
 import './LeftInterface.css';
 import PercentageSlider from '../EleNA_Slidder/Slider';
-import Form from 'react-bootstrap/Form'
+// import Form from 'react-bootstrap/Form'
 
 // import Toggle from '../EleNA_Toggle/Toggle'
 
 class LeftForm extends React.Component {
  
-    constructor(props) {
-        super(props);
+  constructor(props) {
+      super(props);
 
-        this.state = {
-            source: "",
-            destination: "",
-            percentage: 50,
-            elevationType: "MIN",
-            json: [],
-            renderRoute: false,
-            submitted: false
-        };
-    
-        this.handleSourceChange = this.handleSourceChange.bind(this);
-        this.handleDestinationChange = this.handleDestinationChange.bind(this);
-        this.handleSliderChange = this.handleSliderChange.bind(this);
-        this.setElevationType = this.setElevationType.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
+      this.state = {
+          source: "",
+          destination: "",
+          percentage: 50,
+          elevationType: "MIN",
+          json: [],
+          renderRoute: false,
+          submitted: false
+      };
+  
+      this.handleSourceChange = this.handleSourceChange.bind(this);
+      this.handleDestinationChange = this.handleDestinationChange.bind(this);
+      this.handleSliderChange = this.handleSliderChange.bind(this);
+      this.setElevationType = this.setElevationType.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+  }
 
     setElevationType(type){
-        this.setState({elevationType: type});
-    }
+      this.setState({elevationType: type});
+  }
 
     handleSourceChange(event) {
-      this.setState({source: event.target.value});
-    }
-  
+    this.setState({source: event.target.value});
+  }
+
     handleDestinationChange(event) {
-      this.setState({destination: event.target.value});
-    }
+    this.setState({destination: event.target.value});
+  }
 
     handleSliderChange(event) {
-      this.setState({percentage: event.target.valueAsNumber});
-    }
+    this.setState({percentage: event.target.valueAsNumber});
+  }
+
       
     handleSubmit(event) {
+      if (this.state.source === this.state.destination){
+        window.alert("Please enter proper source and destination")
+        // this.state.source = ""
+        // this.state.destination = ""
+    }
+      else{
         this.setState({submitted: true})
         fetch("http://127.0.0.1:9000/get_route", {
           method: 'POST',
@@ -72,7 +79,8 @@ class LeftForm extends React.Component {
         })
         this.props.updateRoute(json["Route"])
     })
-  }j
+  }
+}
 
     render() {
         return (
