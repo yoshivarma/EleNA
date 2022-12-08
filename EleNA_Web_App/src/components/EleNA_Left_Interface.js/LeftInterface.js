@@ -124,8 +124,8 @@ class LeftForm extends React.Component {
               [<div>
                 {/* {this.props.updateRoute(this.state.route)} */}
                 <div className='statistics'>
-                  <input type="text" size="20" placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
-                  <input type="text" size="20" placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
+                  <input type="text" size="20" readonly = 'readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
+                  <input type="text" size="20" readonly = 'readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
                 </div>
               
                 {/* <b>Total Distance:</b>  {this.state.distance},
