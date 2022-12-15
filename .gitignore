@@ -1,9 +1,9 @@
-.idea
-.DS_Store
-
 /EleNA-Web-App/node_modules
 /EleNA-Web-App/.DS_Store
 
 /EleNA-Server-App/.DS_Store
-/ EleNA-Server-App/__pycache__
+/ EleNA-Server-App/__pycache__/
 /EleNA-Server-App/cache
+
+/.idea/
+/.DS_Store
