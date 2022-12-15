@@ -15,9 +15,8 @@ class LeftForm extends React.Component {
           destination: "",
           percentage: 50,
           elevationType: "MIN",
-          json: [],
-          renderRoute: false,
-          submitted: false
+          submitted: false,
+          renderRoute: false
       };
   
       this.handleSourceChange = this.handleSourceChange.bind(this);
@@ -51,7 +50,7 @@ class LeftForm extends React.Component {
         // this.state.destination = ""
     }
       else{
-        this.setState({submitted: true})
+        this.setState({submitted: true, renderRoute: false})
         fetch("http://127.0.0.1:9000/get_route", {
           method: 'POST',
           headers: {
@@ -67,13 +66,12 @@ class LeftForm extends React.Component {
       })
       .then(res => res.json())
       .then(json => {
-        console.log("initial json route",json["Route"]);
         // console.log(json["Distance"],json["Elevation Gain"]);
         
         this.setState({
           route: json["Route"],
-          renderRoute: true,
-          submitted: this.state.submitted,
+          submitted: false,
+            renderRoute: true,
           distance: json["Distance"],
           elevation: json["Elevation Gain"]
         })
@@ -84,17 +82,17 @@ class LeftForm extends React.Component {
 
     render() {
         return (
-          <form onSubmit={this.handleSubmit}>
+          <>
           <div className="ms-2 me-2 mt-2">          
             {/* <h3 className="mt-2">EleNA</h3> */}
-            <nav class="navbar" display= "inline-block">
+            <nav  className="navbar inline-block">
               {/* <a class="navbar-brand" href="#" > */}
-                <img src="hiking.png" width="120" height="120" color= "white" class="shadow" alt="logo"/>
+                <img src="/hiking.png" width="120" height="120" color= "white" className="shadow" alt="logo"/>
               {/* </a> */}
             </nav>
           </div>
           
-          <div class="d-grid gap-1">
+          <div className="d-grid gap-1">
             <div className="mt-1 ms-2 me-2">
                 <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required />
                 {/* <label htmlFor="source">Enter Source</label> */}
@@ -120,21 +118,18 @@ class LeftForm extends React.Component {
             </div>
 
             <div> 
-              {!this.state.renderRoute && this.state.submitted ? "Calculating!!!":
-              [<div>
-                {/* {this.props.updateRoute(this.state.route)} */}
-                <div className='statistics'>
-                  <input type="text" size="20" readonly = 'readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
-                  <input type="text" size="20" readonly = 'readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
+              {this.state.submitted && "Calculating!!!"}
+                {this.state.renderRoute &&
+                <div>
+                    <div className='statistics'>
+                        <input type="text" size="20" readOnly='readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
+                        <input type="text" size="20" readOnly='readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
+                    </div>
                 </div>
-              
-                {/* <b>Total Distance:</b>  {this.state.distance},
-                <b>Total elevation:</b> {this.state.elevation} */}
-              </div>]}
+              }
             </div>
-            
           </div>
-          </form>
+          </>
         );
     }      
 }
