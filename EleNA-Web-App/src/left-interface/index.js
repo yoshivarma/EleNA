@@ -1,11 +1,8 @@
 import React from 'react';
-import './LeftInterface.css';
-import PercentageSlider from '../EleNA_Slidder/Slider';
-// import Form from 'react-bootstrap/Form'
+import './index.css';
+import Slider from './components/slider/Slider';
 
-// import Toggle from '../EleNA_Toggle/Toggle'
-
-class LeftForm extends React.Component {
+class LeftInterface extends React.Component {
  
   constructor(props) {
       super(props);
@@ -85,7 +82,7 @@ class LeftForm extends React.Component {
     render() {
         return (
           <form onSubmit={this.handleSubmit}>
-          <div className="ms-2 me-2 mt-2">          
+          <div className="ms-2 me-2 mt-2">
             {/* <h3 className="mt-2">EleNA</h3> */}
             <nav class="navbar" display= "inline-block">
               {/* <a class="navbar-brand" href="#" > */}
@@ -112,7 +109,7 @@ class LeftForm extends React.Component {
                   <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
               </div>
               <div className="mt-3">
-                  <PercentageSlider onChange={this.handleSliderChange} value={this.state.percentage}/>
+                  <Slider onChange={this.handleSliderChange} value={this.state.percentage}/>
               </div>
               <div className="mt-3">
                   <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
@@ -121,16 +118,13 @@ class LeftForm extends React.Component {
 
             <div> 
               {!this.state.renderRoute && this.state.submitted ? "Calculating!!!":
-              [<div>
+              <div>
                 {/* {this.props.updateRoute(this.state.route)} */}
                 <div className='statistics'>
-                  <input type="text" size="20" readonly = 'readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
-                  <input type="text" size="20" readonly = 'readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
+                  <input type="text" size="20" readOnly='readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
+                  <input type="text" size="20" readOnly='readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
                 </div>
-              
-                {/* <b>Total Distance:</b>  {this.state.distance},
-                <b>Total elevation:</b> {this.state.elevation} */}
-              </div>]}
+              </div>}
             </div>
             
           </div>
@@ -139,4 +133,4 @@ class LeftForm extends React.Component {
     }      
 }
 
-export default LeftForm
+export default LeftInterface

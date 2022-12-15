@@ -13,7 +13,7 @@
 }
 
 .navbar .navbar-brand{
-    box-shadow: 0px 2px 5px #777;
+    box-shadow: 0 2px 5px #777;
     text-decoration: solid;
     color: #e9ecef;
     font-size: larger;
@@ -21,7 +21,6 @@
 .col-4 .navbar{
     --bs-navbar-brand-padding-y: 0rem;
     --bs-navbar-brand-hover-color: #e9ecef;
-    --bs-navbar-brand-hover-color: white;
     text-decoration: solid;
     color: #e9ecef;
     font-size: larger;
@@ -35,12 +34,9 @@
 }
 
 .mt-1 {
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
-    margin-left: 1rem;
-    margin-right: 1rem;
+    margin: 0.5rem 1rem;
     height: auto;
-    padding-top: 0px;
+    padding-top: 0;
 }
 
 .ms-5 .mt-1 .btn-sm {

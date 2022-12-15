@@ -1,6 +1,6 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup, ComposableMap } from 'react-leaflet'
-import './Map.css';
+import './index.css';
 import { Polyline } from 'react-leaflet';
 // import React from 'react';
 // import {
@@ -76,7 +76,7 @@ import { Polyline } from 'react-leaflet';
       })}
     </Map> */}
 
-function MapDisplay({route}) { 
+function MapInterface({route}) {
     // console.log(route)
 
     // const [routePath, setRoutePath] = useState({})
@@ -112,7 +112,6 @@ function MapDisplay({route}) {
             )}
             
             {route && route.map((path) => {
-                console.log(path[0])
                 return <Polyline positions={[
                     [path[0][1], path[0][0]], [path[1][1], path[1][0]],
                 ]} color={'red'} />
@@ -122,4 +121,4 @@ function MapDisplay({route}) {
     );
 }
 
-export default MapDisplay;
+export default MapInterface;
