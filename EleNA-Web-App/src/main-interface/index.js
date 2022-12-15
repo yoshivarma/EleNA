@@ -20,7 +20,7 @@ class MainInterface extends React.Component {
 
     render() {
         return(
-        <div className="row bg-light">
+        <div className="row">
             <div className="col-4 pe-0">
             <LeftInterface updateRoute={this.updateRoute}/>
             </div>

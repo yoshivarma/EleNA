@@ -82,3 +82,8 @@
     margin-top: 5rem;
     height: 60px;
 }
+.btn-selected {
+    color: var(--bs-btn-hover-color);
+    background-color: rgb(234, 155, 169);
+    border-color: rgb(234, 155, 169);
+}
