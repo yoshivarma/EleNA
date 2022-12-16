@@ -32,18 +32,18 @@ actions.perform()
 submit = driver.find_element("id", "submit button")
 submit.click()
 
-# driver.implicitly_wait(40)
-
-#find distance statistics and verify the calculated values
+time.sleep(10)
+# find distance statistics and verify the calculated values
 distance = driver.find_element("name", "fee_distance")
 distance_value = distance.get_attribute("value")
-if(distance_value == 6108.544):{
-   print("Value is correct")
-}
-
-#find elevation statistics and verify the calculated values
+if distance_value == '6116.204':
+    print("Obtained distance value is correct")
+#
+# #find elevation statistics and verify the calculated values
 elevation = driver.find_element("name", "fee_elevation")
-elevation_value = distance.get_attribute("value")
-if(elevation_value == 60):{
-    print("Value is correct")
-}
+elevation_value = elevation.get_attribute("value")
+if elevation_value == '50':
+    print("Obtained elevation value is correct")
+
+print("Testing is successful for Happy path")
+

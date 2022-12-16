@@ -46,10 +46,10 @@ class LeftInterface extends React.Component {
             window.alert("Invalid source or destination. Please enter proper source and destination")
         }
         // an alert popup will be displayed to the user when invalid characters are provided in source or destination
-        const regex = new RegExp("^[A-Za-z0-9,-]*");
-        if (regex.test(this.state.source) || regex.test(this.state.destination)) {
-            window.alert("Invalid characters are provided in Source or Destination")
-        }
+//         const regex = new RegExp("^[A-Za-z0-9,-]*");
+//         if (regex.test(this.state.source) || regex.test(this.state.destination)) {
+//             window.alert("Invalid characters are provided in Source or Destination")
+//         }
         // if source and destination are given, then the input details are passed as a JSON object to the backend algorithm
         else {
             this.setState({submitted: true, renderRoute: false})
@@ -127,8 +127,8 @@ class LeftInterface extends React.Component {
                     {this.state.renderRoute &&
                         <div>
                             <div>Statistics</div>
-                            <div name="fee_distance">Total Distance: {this.state.distance} </div>
-                            <div name="fee_elevation">Total Elevation: {this.state.elevation}</div>
+                            <div name="fee_distance" value = {this.state.distance}>Total Distance: {this.state.distance} </div>
+                            <div name="fee_elevation" value = {this.state.elevation}>Total Elevation: {this.state.elevation}</div>
                         </div>
                     }
                 </div>
