@@ -41,9 +41,16 @@ class LeftInterface extends React.Component {
 
 
     handleSubmit(event) {
-        if (this.state.source === this.state.destination){
-            window.alert("Please enter proper source and destination")
+        //an alert popup will be displayed to the user when source or destination are given empty or when source and destination are provided same
+        if (this.state.source === this.state.destination || this.state.source === '' || this.state.destination === ''){
+            window.alert("Invalid source or destination. Please enter proper source and destination")
         }
+        // an alert popup will be displayed to the user when invalid characters are provided in source or destination
+//         const regex = new RegExp("^[A-Za-z0-9,-]*");
+//         if (regex.test(this.state.source) || regex.test(this.state.destination)) {
+//             window.alert("Invalid characters are provided in Source or Destination")
+//         }
+        // if source and destination are given, then the input details are passed as a JSON object to the backend algorithm
         else {
             this.setState({submitted: true, renderRoute: false})
             fetch("http://127.0.0.1:9000/get_route", {
@@ -61,12 +68,14 @@ class LeftInterface extends React.Component {
             })
             .then(res => res.json())
             .then(json => {
+                //when source and destination are misspelt, an alert popup will be shown to the user asking to provide valid inputs
                 if (json["Error"]) {
                     this.setState({
                        submitted: false
                     })
-                    window.alert(json["Error"])
+                    window.alert(json["Either one of the source and/or destination values are misspelt. Please provide valid source and destination."])
                 }
+                //when valid source and destination are given, we will set the route coordinates and display statistics
                 else {
                    this.setState({
                     route: json["Route"],
@@ -75,6 +84,7 @@ class LeftInterface extends React.Component {
                     distance: json["Distance"],
                     elevation: json["Elevation Gain"]
                 })
+                // pass the calculated route to Map Interface to plot the route.
                 this.props.updateRoute(json["Route"])
                 }
             })
@@ -90,17 +100,17 @@ class LeftInterface extends React.Component {
                 </div>
                 <div className="w-75">
                     <div className="mt-4">
-                        <input type="text" placeholder="Enter Source" className="form-control" onChange={this.handleSourceChange} value={this.state.source} required="required"/>
+                        <input type="text" id="source" placeholder="Enter Source" className="form-control" onChange={this.handleSourceChange} value={this.state.source} required="required"/>
                     </div>
                     <div className="mt-4">
-                        <input type="text" placeholder="Enter Destination" className="form-control" onChange={this.handleDestinationChange} value={this.state.destination} required="required"/>
+                        <input type="text" id="destination" placeholder="Enter Destination" className="form-control" onChange={this.handleDestinationChange} value={this.state.destination} required="required"/>
                     </div>
                 </div>
                 <div className="mt-4 text-center">
                     <div className="text-white">Elevation</div>
                     <div className="mt-2">
-                        <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
-                        <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
+                        <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button" name="min"/>
+                        <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" name="max"/>
                     </div>
                 </div>
                 <div className="w-75 mt-4 text-center">
@@ -108,7 +118,7 @@ class LeftInterface extends React.Component {
                     <Slider onChange={this.handleSliderChange} value={this.state.percentage}/>
                 </div>
                 <div>
-                    <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
+                    <button id="submit button" className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
                 </div>
                 <div className="text-center text-white mt-4">
                     {this.state.submitted &&
@@ -117,8 +127,8 @@ class LeftInterface extends React.Component {
                     {this.state.renderRoute &&
                         <div>
                             <div>Statistics</div>
-                            <div>Total Distance: {this.state.distance}</div>
-                            <div>Total Elevation: {this.state.elevation}</div>
+                            <div name="fee_distance" value = {this.state.distance}>Total Distance: {this.state.distance} </div>
+                            <div name="fee_elevation" value = {this.state.elevation}>Total Elevation: {this.state.elevation}</div>
                         </div>
                     }
                 </div>
