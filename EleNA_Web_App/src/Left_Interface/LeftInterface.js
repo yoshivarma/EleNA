@@ -59,19 +59,27 @@ class LeftInterface extends React.Component {
                     elevationType: this.state.elevationType
                 })
             })
-                .then(res => res.json())
-                .then(json => {
+            .then(res => res.json())
+            .then(json => {
+                if (json["Error"]) {
                     this.setState({
-                        route: json["Route"],
-                        submitted: false,
-                        renderRoute: true,
-                        distance: json["Distance"],
-                        elevation: json["Elevation Gain"]
+                       submitted: false
                     })
-                    this.props.updateRoute(json["Route"])
+                    window.alert(json["Error"])
+                }
+                else {
+                   this.setState({
+                    route: json["Route"],
+                    submitted: false,
+                    renderRoute: true,
+                    distance: json["Distance"],
+                    elevation: json["Elevation Gain"]
                 })
-        }
+                this.props.updateRoute(json["Route"])
+                }
+            })
     }
+}
 
     render() {
         return (
