@@ -90,17 +90,17 @@ class LeftInterface extends React.Component {
                 </div>
                 <div className="w-75">
                     <div className="mt-4">
-                        <input type="text" placeholder="Enter Source" className="form-control" onChange={this.handleSourceChange} value={this.state.source} required="required"/>
+                        <input type="text" id="source" placeholder="Enter Source" className="form-control" onChange={this.handleSourceChange} value={this.state.source} required="required"/>
                     </div>
                     <div className="mt-4">
-                        <input type="text" placeholder="Enter Destination" className="form-control" onChange={this.handleDestinationChange} value={this.state.destination} required="required"/>
+                        <input type="text" id="destination" placeholder="Enter Destination" className="form-control" onChange={this.handleDestinationChange} value={this.state.destination} required="required"/>
                     </div>
                 </div>
                 <div className="mt-4 text-center">
                     <div className="text-white">Elevation</div>
                     <div className="mt-2">
-                        <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
-                        <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
+                        <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button" name="min"/>
+                        <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" name="max"/>
                     </div>
                 </div>
                 <div className="w-75 mt-4 text-center">
@@ -108,7 +108,7 @@ class LeftInterface extends React.Component {
                     <Slider onChange={this.handleSliderChange} value={this.state.percentage}/>
                 </div>
                 <div>
-                    <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
+                    <button id="submit button" className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
                 </div>
                 <div className="text-center text-white mt-4">
                     {this.state.submitted &&
@@ -117,8 +117,8 @@ class LeftInterface extends React.Component {
                     {this.state.renderRoute &&
                         <div>
                             <div>Statistics</div>
-                            <div>Total Distance: {this.state.distance}</div>
-                            <div>Total Elevation: {this.state.elevation}</div>
+                            <div name="fee_distance">Total Distance: {this.state.distance} </div>
+                            <div name="fee_elevation">Total Elevation: {this.state.elevation}</div>
                         </div>
                     }
                 </div>
