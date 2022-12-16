@@ -10,7 +10,11 @@ const createRoutineMachineLayer = (props) => {
         waypoints: route,
         lineOptions: {
             styles: [{color: "blue", weight: 4}]
-        }
+        },
+        autoRoute: true,
+        draggableWaypoints: false,
+        reverseWaypoints: true,
+        addWaypoints: true
     })
 };
 
