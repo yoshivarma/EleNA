@@ -1,7 +1,7 @@
 import React from 'react';
-import MapInterface from '../map-interface';
-import LeftInterface from '../left-interface';
-import './index.css';
+import MapInterface from '../Map_Interface/MapInterface';
+import LeftInterface from '../Left_Interface/LeftInterface';
+import './MainInterface.css';
 
 class MainInterface extends React.Component {
     constructor(props) {

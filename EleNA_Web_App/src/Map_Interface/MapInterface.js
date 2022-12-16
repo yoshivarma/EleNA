@@ -1,7 +1,7 @@
 import React, {useEffect, useRef} from 'react';
 import { MapContainer, TileLayer } from 'react-leaflet'
-import RoutingMachine from "./components/routing-machine";
-import './index.css';
+import RoutingMachine from "./components/RoutingMachine";
+import './MapInterface.css';
 
 const MapInterface = ({route}) => {
     const rMachine = useRef();

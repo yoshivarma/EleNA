@@ -1,5 +1,5 @@
 import React from 'react';
-import './index.css';
+import './LeftInterface.css';
 import Slider from "./components/slider/slider";
 
 class LeftInterface extends React.Component {
