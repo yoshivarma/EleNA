@@ -1,7 +1,8 @@
 import './App.css';
-import MainInterface from './EleNA_MainInterface/MainInterface';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-icons/font/bootstrap-icons.css';
+import MainInterface from './Main_Interface/MainInterface';
+
 
 function App() {
   return (

@@ -10,8 +10,7 @@ CORS(app)
 geolocator = Nominatim(user_agent="elena")
 
 
-
-# #Importing 'http' module 
+# #Importing 'http' module
 # const http = require('http')
 # const port = 8080;
 
@@ -52,7 +51,7 @@ def get_route():
     # find the best path between source & destination based on elevation
     route, max_ele_gain, total_distance = Route_Statistics(source, destination, percentage, elevation_type)
     # route = [1,2,3]
-    
+
     print(route)
     print(max_ele_gain)
     print(total_distance)
@@ -60,14 +59,13 @@ def get_route():
 
     result = []
     # x=[0, 1, 2]
-    for i in range(len(route)-1):
-        result.append((route[i], route[i+1]))
-     # send a response back (w/ the route)
+    for long_lat in route:
+        result.append([long_lat[1], long_lat[0]])
+    # send a response back (w/ the route)
     response = jsonify({'Route': result, "Distance": total_distance, "Elevation Gain": max_ele_gain})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
-
 if __name__ == "__main__":
-    app.run(debug = True, port=9000)
+    app.run(debug=True, port=9000)

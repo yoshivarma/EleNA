@@ -1,0 +1,9 @@
+.leaflet-container {
+  width: 100vw;
+  height: 100vh;
+}
+div.leaflet-top.leaflet-right {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}

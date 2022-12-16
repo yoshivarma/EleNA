@@ -1,8 +1,4 @@
 import React from 'react';
-// import './LoginForm.css';
-// import request from 'superagent';
-// import {Router,BrowserRouter,Link} from 'react-router-dom';
-// import {Button} from 'react-bootstrap';
 
 var divStyle = {
 	width: "100%",
@@ -23,7 +19,7 @@ class RestAPITest extends React.Component {
 			json :[],
 		};
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleSourceChange = this.handlesourceChange.bind(this);
+		this.handleSourceChange = this.handleSourceChange.bind(this);
         this.handleDestinationChange = this.handleDestinationChange.bind(this);
 	}
 
