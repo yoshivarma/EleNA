@@ -41,9 +41,11 @@ class LeftInterface extends React.Component {
 
 
     handleSubmit(event) {
-        if (this.state.source === this.state.destination){
-            window.alert("Please enter proper source and destination")
+        //an alert popup will be displayed to the user when source or destination are given empty or when source and destination are provided same
+        if (this.state.source === this.state.destination || this.state.source === '' || this.state.destination === ''){
+            window.alert("Invalid source or destination. Please enter proper source and destination")
         }
+        // if source and destination are given, then the input details are passed as a JSON object to the backend algorithm
         else {
             this.setState({submitted: true, renderRoute: false})
             fetch("http://127.0.0.1:9000/get_route", {
@@ -61,12 +63,14 @@ class LeftInterface extends React.Component {
             })
             .then(res => res.json())
             .then(json => {
+                //when source and destination are misspelt, an alert popup will be shown to the user asking to provide valid inputs
                 if (json["Error"]) {
                     this.setState({
                        submitted: false
                     })
-                    window.alert(json["Error"])
+                    window.alert(json["Either one of the source and/or destination values are misspelt. Please provide valid source and destination."])
                 }
+                //when valid source and destination are given, we will set the route coordinates and display statistics
                 else {
                    this.setState({
                     route: json["Route"],
@@ -75,6 +79,7 @@ class LeftInterface extends React.Component {
                     distance: json["Distance"],
                     elevation: json["Elevation Gain"]
                 })
+                // pass the calculated route to Map Interface to plot the route.
                 this.props.updateRoute(json["Route"])
                 }
             })
