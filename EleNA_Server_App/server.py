@@ -1,11 +1,11 @@
-import os
+mport os
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
 from geopy import Nominatim
 from algorithm import Route_Statistics
 import json
 
-app = Flask(__name__)
+app = Flask(_name_)
 CORS(app)
 geolocator = Nominatim(user_agent="elena")
 
@@ -27,7 +27,6 @@ geolocator = Nominatim(user_agent="elena")
 #     res.setHeader('Content-Type', 'text/plain')
 #     res.end("Welcome to Geeks For Geeks")
 # });
-
 @app.route("/get_route", methods=['POST'])
 def get_route():
     content = request.get_json()
@@ -49,23 +48,28 @@ def get_route():
     # city, state = get_city_country(source)
 
     # find the best path between source & destination based on elevation
-    route, max_ele_gain, total_distance = Route_Statistics(source, destination, percentage, elevation_type)
+    result = Route_Statistics(source, destination, percentage, elevation_type)
+    if result == "misspelled address":
+        response = jsonify({"Error": result})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        return response
+    route, max_ele_gain, total_distance = result
     # route = [1,2,3]
 
-    print(route)
-    print(max_ele_gain)
-    print(total_distance)
-    print(elevation_type)
+    # print(route)
+    # print(max_ele_gain)
+    # print(total_distance)
+    # print(elevation_type)
 
     result = []
     # x=[0, 1, 2]
     for long_lat in route:
         result.append([long_lat[1], long_lat[0]])
     # send a response back (w/ the route)
-    response = jsonify({'Route': result, "Distance": total_distance, "Elevation Gain": max_ele_gain})
+    response = jsonify({'Route': result, "Distance": total_distance, "Elevation Gain": max_ele_gain, "Error": ""})
     response.headers.add('Access-Control-Allow-Origin', '*')
     return response
 
 
-if __name__ == "__main__":
+if _name_ == "_main_":
     app.run(debug=True, port=9000)
