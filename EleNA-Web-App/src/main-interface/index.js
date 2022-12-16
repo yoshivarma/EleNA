@@ -21,10 +21,10 @@ class MainInterface extends React.Component {
     render() {
         return(
         <div className="row">
-            <div className="col-4 pe-0">
+            <div className="col-3 pe-0 bg-dark">
             <LeftInterface updateRoute={this.updateRoute}/>
             </div>
-            <div className="col-8 ps-0">
+            <div className="col-9 ps-0">
             <MapInterface route={this.state.route}/>
             </div>
         </div>

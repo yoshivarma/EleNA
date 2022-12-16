@@ -4,7 +4,6 @@ import RoutingMachine from "./components/routing-machine";
 import './index.css';
 
 const MapInterface = ({route}) => {
-    console.log("Map Interface:", route)
     const rMachine = useRef();
     useEffect(() => {
         if (rMachine.current) {

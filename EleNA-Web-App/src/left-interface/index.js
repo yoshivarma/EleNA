@@ -75,50 +75,46 @@ class LeftInterface extends React.Component {
 
     render() {
         return (
-            <>
-                <div className="text-center">
-                    <div className="mt-2">
-                        <img src="/hiking.png" width="120" height="120" alt="logo"/>
+            <div className="d-flex flex-column align-items-center">
+                {/*Logo*/}
+                <div className="mt-4">
+                    <img src="/hiking.png" width="120" height="120" alt="logo"/>
+                </div>
+                <div className="w-75">
+                    <div className="mt-4">
+                        <input type="text" placeholder="Enter Source" className="form-control" onChange={this.handleSourceChange} value={this.state.source} required="required"/>
                     </div>
-                    <div className="d-grid gap-1">
-                        <div className="mt-1 ms-2 me-2">
-                            <input type="text" id="source" className="source form-control" placeholder="Enter Source" onChange={this.handleSourceChange} value={this.state.source} required/>
-                        </div>
-                        <div className="mt-1 ms-2 me-2">
-                            <input type="text" id="destination" className="destination form-control" placeholder="Enter Destination" onChange={this.handleDestinationChange} value={this.state.destination} required/>
-                        </div>
-                    </div>
-                    <div className="set_margin ms-5 me-5 mt-5">
-                        <div className="d-flex flex-column justify-content-center ms-5 me-5 mt-5">
-                            <div className="mt-3 d-flex justify-content-center">
-                                <div className="m-1">
-                                    <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm btn-selected" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
-                                </div>
-                                <div className="m-1">
-                                    <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm btn-selected" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
-                                </div>
-                            </div>
-                            <div className="mt-3">
-                                <Slider onChange={this.handleSliderChange} value={this.state.percentage}/>
-                            </div>
-                            <div className="mt-3">
-                                <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
-                            </div>
-                        </div>
-                        <div>
-                            {this.state.submitted && "Calculating!!!"}
-                            {this.state.renderRoute &&
-                                <div>
-                                    <div className='statistics'>
-                                        <input type="text" size="20" readOnly='readonly' placeholder="Distance Statistics" name="fee" value={this.state.distance}/>
-                                        <input type="text" size="20" readOnly='readonly' placeholder="Elevation Statistics" name="fee" value={this.state.elevation}/>
-                                    </div>
-                                </div>
-                            }
-                        </div>
+                    <div className="mt-4">
+                        <input type="text" placeholder="Enter Destination" className="form-control" onChange={this.handleDestinationChange} value={this.state.destination} required="required"/>
                     </div>
                 </div>
-            </>
+                <div className="mt-4 text-center">
+                    <div className="text-white">Elevation</div>
+                    <div className="mt-2">
+                        <input className={this.state.elevationType === "MIN" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MIN")} value="MIN" type="button"/>
+                        <input className={this.state.elevationType === "MAX" ? "btn btn-primary btn-sm" : "btn btn-light btn-sm"} onClick={() => this.setElevationType("MAX")} value="MAX" type="button" />
+                    </div>
+                </div>
+                <div className="w-75 mt-4 text-center">
+                    <div className="text-white">Percentage Increase: {this.state.percentage}</div>
+                    <Slider onChange={this.handleSliderChange} value={this.state.percentage}/>
+                </div>
+                <div>
+                    <button className="btn btn-primary form-control" onClick={this.handleSubmit}>Submit</button>
+                </div>
+                <div className="text-center text-white mt-4">
+                    {this.state.submitted &&
+                        <div>Calculating!!!</div>
+                    }
+                    {this.state.renderRoute &&
+                        <div>
+                            <div>Statistics</div>
+                            <div>Total Distance: {this.state.distance}</div>
+                            <div>Total Elevation: {this.state.elevation}</div>
+                        </div>
+                    }
+                </div>
+            </div>
         );
     }
 }

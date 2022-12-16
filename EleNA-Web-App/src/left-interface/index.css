@@ -1,89 +1,22 @@
-.content-container {
-    padding: 10%;
-    height: 100vh;
-    background-color: lightgrey;
-    font-size: 64px;
-}
-.Container{
-    background-color: black;
-}
 
-.box {
-    border: 1px solid black;
-}
-
-.navbar .navbar-brand{
-    box-shadow: 0 2px 5px #777;
-    text-decoration: solid;
-    color: #e9ecef;
-    font-size: larger;
-}
-.col-4 .navbar{
-    --bs-navbar-brand-padding-y: 0rem;
-    --bs-navbar-brand-hover-color: #e9ecef;
-    text-decoration: solid;
-    color: #e9ecef;
-    font-size: larger;
-    display: inline-block;
-}
-
-.col-4 .ms-5{
-    margin-top: 3rem;
-    margin-left: 5rem;
-    margin-right: 5rem;
-}
-
-.mt-1 {
-    margin: 0.5rem 1rem;
-    height: auto;
-    padding-top: 0;
-}
-
-.ms-5 .mt-1 .btn-sm {
-    --bs-btn-padding-y: 0rem;
-    --bs-btn-padding-x: 0rem;
-    --bs-btn-font-size: 0.875rem;
-    --bs-btn-border-radius: 0.25rem;
-}
-
-.gap-1{
-    margin-top: 3rem;
-    margin-left: 2rem;
-    margin-right: 2rem;
-
-}
-
-.btn{
-    background-color: pink;
-}
 .btn:hover {
     color: var(--bs-btn-hover-color);
     background-color: rgb(234, 155, 169);
     border-color: rgb(234, 155, 169);
 }
-.mt-3 .btn-primary {
+.btn-primary {
     --bs-btn-color: #000;
     --bs-btn-bg: rgb(234, 155, 169);
-    --bs-btn-border-color: #f8f9fa;
+    --bs-btn-border-color: rgb(234, 155, 169);
     --bs-btn-hover-color: #000;
     --bs-btn-hover-bg: #d3d4d5;
-    --bs-btn-hover-border-color: #f8f9fa;
+    --bs-btn-hover-border-color: rgb(234, 155, 169);
     --bs-btn-focus-shadow-rgb: 211,212,213;
-    --bs-btn-active-color: #000;
-    --bs-btn-active-bg: #c6c7c8;
-    --bs-btn-active-border-color: #babbbc;
-    --bs-btn-active-shadow: inset 0 3px 5pxrgba(0, 0, 0, 0.125);
+    --bs-btn-active-color: rgb(234, 155, 169);
+    --bs-btn-active-bg: rgb(234, 155, 169);
+    --bs-btn-active-border-color: rgb(234, 155, 169);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #000;
     --bs-btn-disabled-bg: #f8f9fa;
     --bs-btn-disabled-border-color: #f8f9fa;
-}
-.statistics{
-    display: flex;
-    margin-top: 5rem;
-    height: 60px;
-}
-.btn-selected {
-    color: var(--bs-btn-hover-color);
-    background-color: rgb(234, 155, 169);
-    border-color: rgb(234, 155, 169);
 }

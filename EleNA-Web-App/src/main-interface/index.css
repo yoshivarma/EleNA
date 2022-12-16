@@ -1,14 +1,1 @@
-.col-4 {
-    width: 20%;
-    color:gray;
-    background-color: rgb(24, 20, 32);
-}
-.col-8 {
-    width: 80%;
-    float: right;
-}
-.row {
-    overflow-y: hidden;
-    overflow-x: hidden;
-}
 
