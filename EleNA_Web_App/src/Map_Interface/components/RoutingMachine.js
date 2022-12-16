@@ -3,7 +3,9 @@ import {createControlComponent} from "@react-leaflet/core";
 import "leaflet-routing-machine";
 
 const createRoutineMachineLayer = (props) => {
+    // destructured route from props
     const {route} = props
+    // created routing control with generated route
     return L.Routing.control({
         waypoints: route,
         lineOptions: {
