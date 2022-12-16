@@ -11,7 +11,7 @@ import json
 import urllib.request
 
 class Model:
-    def _init_(self, city, state, start, end, k, minimum_elevation):
+    def __init__(self, city, state, start, end, k, minimum_elevation):
         self.city = city
         self.state = state
         self.start = start
@@ -72,7 +72,7 @@ class Model:
             location = {"locations": d_ar}
             json_data = json.dumps(location, skipkeys=int).encode('utf8')
 
-# SEND REQUEST
+            # SEND REQUEST
             url = "https://api.open-elevation.com/api/v1/lookup"
             response = urllib.request.Request(url, json_data, headers={'Content-Type': 'application/json'})
             fp = urllib.request.urlopen(response)
