@@ -10,9 +10,8 @@ import folium
 import json
 import urllib.request
 
-
 class Model:
-    def __init__(self, city, state, start, end, k, minimum_elevation):
+    def _init_(self, city, state, start, end, k, minimum_elevation):
         self.city = city
         self.state = state
         self.start = start
@@ -32,10 +31,12 @@ class Model:
     def Cordinates(self, loc, start, end):
         # start latitue and longitude
         start_loc = loc.geocode(start)
-        start_latitude = start_loc.latitude
-        start_longitude = start_loc.longitude
         # end latitude and longitude
         end_loc = loc.geocode(end)
+        if start_loc is None or end_loc is None:
+            return "misspelled address"
+        start_latitude = start_loc.latitude
+        start_longitude = start_loc.longitude
         end_latitude = end_loc.latitude
         end_longitude = end_loc.longitude
         return start_latitude, start_longitude, end_latitude, end_longitude
@@ -44,7 +45,10 @@ class Model:
         # obtainin location, graphs
         loc, graph1 = self.Locator(city, state)
         # getting lattitudes, longitudes from the location
-        start_latitude, start_longitude, end_latitude, end_longitude = self.Cordinates(loc, start, end)
+        result = self.Cordinates(loc, start, end)
+        if result == "misspelled address":
+            return "misspelled address"
+        start_latitude, start_longitude, end_latitude, end_longitude = result
         # Obtaining the nearest nodes from the graph(Geo Data) for that location
         end_N = ox.nearest_nodes(graph1, end_longitude, end_latitude, True)
         start_N = ox.nearest_nodes(graph1, start_longitude, start_latitude, True)
@@ -68,7 +72,7 @@ class Model:
             location = {"locations": d_ar}
             json_data = json.dumps(location, skipkeys=int).encode('utf8')
 
-            # SEND REQUEST
+# SEND REQUEST
             url = "https://api.open-elevation.com/api/v1/lookup"
             response = urllib.request.Request(url, json_data, headers={'Content-Type': 'application/json'})
             fp = urllib.request.urlopen(response)
@@ -154,7 +158,10 @@ def Route_Statistics(start, end, k, minimum_elevation):
     # minimum_elevation = False
     # k = 140
     model = Model(city, state, start, end, k, minimum_elevation)
-    graph1, lat_long, max_ele_gain = model.Route(city, state, start, end, k, minimum_elevation)
+    result = model.Route(city, state, start, end, k, minimum_elevation)
+    if result == "misspelled address":
+        return result
+    graph1, lat_long, max_ele_gain = result
     nodes = list()
     for i in lat_long:
         nodes.append(ox.nearest_nodes(graph1, i[0], i[1], True)[0])
