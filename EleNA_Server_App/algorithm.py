@@ -58,8 +58,10 @@ class Model:
 
         # start latitue and longitude
         start_loc = loc.geocode(start)
+        print("start location",start_loc)
         # end latitude and longitude
         end_loc = loc.geocode(end)
+        print("end location",end_loc)
         if start_loc is None or end_loc is None:
             return "misspelled address"
         start_latitude = start_loc.latitude
