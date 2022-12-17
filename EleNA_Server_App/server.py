@@ -20,13 +20,6 @@ geolocator = Nominatim(user_agent="elena")
 # const hostname = 'localhost';
 
 # // Creating Server 
-# const server = http.createServer((req,res)=>{
-
-#     // Handling Request and Response 
-#     res.statusCode=200;
-#     res.setHeader('Content-Type', 'text/plain')
-#     res.end("Welcome to Geeks For Geeks")
-# });
 @app.route("/get_route", methods=['POST'])
 def get_route():
     content = request.get_json()
@@ -36,15 +29,10 @@ def get_route():
     percentage = int(content['percentage'])
 
     # # convert the source,destination addresses to lat,lng coordinates
-    # source_lat, source_lng = convert_addresss_to_lat_lng(source)
-    # dest_lat, dest_lng = convert_addresss_to_lat_lng(destination)
 
     # get the city, country of the sourcef
-    # print(source)
-    # address_split = source.split(",")
     city = "Amherst"
     state = "MA"
-    # city, state = get_city_country(source)
 
     # find the best path between source & destination based on elevation
     result = Route_Statistics(source, destination, percentage, elevation_type)
