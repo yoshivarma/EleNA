@@ -50,7 +50,7 @@ def get_route():
     # find the best path between source & destination based on elevation
     result = Route_Statistics(source, destination, percentage, elevation_type)
     if result == "misspelled address":
-        response = jsonify({"Error": result})
+        response = jsonify({"Error": "Either one of the source and/or destination values are misspelt. Please provide valid source and destination"})
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     route, max_ele_gain, total_distance = result

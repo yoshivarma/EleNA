@@ -73,7 +73,7 @@ class LeftInterface extends React.Component {
                     this.setState({
                        submitted: false
                     })
-                    window.alert(json["Either one of the source and/or destination values are misspelt. Please provide valid source and destination."])
+                    window.alert(json["Error"])
                 }
                 //when valid source and destination are given, we will set the route coordinates and display statistics
                 else {
@@ -127,8 +127,8 @@ class LeftInterface extends React.Component {
                     {this.state.renderRoute &&
                         <div>
                             <div>Statistics</div>
-                            <div name="fee_distance" value = {this.state.distance}>Total Distance: {this.state.distance} </div>
-                            <div name="fee_elevation" value = {this.state.elevation}>Total Elevation: {this.state.elevation}</div>
+                            <div name="fee_distance" value = {this.state.distance}>Total Distance: {this.state.distance} meters</div>
+                            <div name="fee_elevation" value = {this.state.elevation}>Total Elevation: {this.state.elevation} meters</div>
                         </div>
                     }
                 </div>
