@@ -200,7 +200,7 @@ class Model:
 
 
 def Route_Statistics(start, end, k, minimum_elevation):
-     """
+    """
     Returns total distance, maximum elevation gain, and nodes to mark on the map
 
     Args:
