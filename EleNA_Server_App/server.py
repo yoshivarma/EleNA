@@ -42,7 +42,6 @@ def get_route():
     # get the city, country of the sourcef
     # print(source)
     # address_split = source.split(",")
-    # print(address_split)
     city = "Amherst"
     state = "MA"
     # city, state = get_city_country(source)
@@ -54,15 +53,8 @@ def get_route():
         response.headers.add('Access-Control-Allow-Origin', '*')
         return response
     route, max_ele_gain, total_distance = result
-    # route = [1,2,3]
-
-    # print(route)
-    # print(max_ele_gain)
-    # print(total_distance)
-    # print(elevation_type)
 
     result = []
-    # x=[0, 1, 2]
     for long_lat in route:
         result.append([long_lat[1], long_lat[0]])
     # send a response back (w/ the route)
