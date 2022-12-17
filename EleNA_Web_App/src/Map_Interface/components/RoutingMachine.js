@@ -14,7 +14,24 @@ const createRoutineMachineLayer = (props) => {
         autoRoute: true,
         draggableWaypoints: false,
         reverseWaypoints: true,
-        addWaypoints: true
+        addWaypoints: true,
+        enableHighAccuracy: true,
+        startIcon: L.icon({
+            iconUrl: '/marker7.png',
+            iconSize: [30, 30]
+        }),
+        endIcon: L.icon({
+            iconUrl: '/marker8.png',
+            iconSize: [30, 30]
+        }),
+        createMarker: function(i, wp, nWps) {
+            if (i === 0 ) {
+                return L.marker(wp.latLng, {icon: this.startIcon });
+            }
+            if(i === nWps - 1){
+                return L.marker(wp.latLng, {icon: this.endIcon });
+            }
+        }
     })
 };
 

@@ -20,48 +20,19 @@ class Model:
         self.minimum_elevation = minimum_elevation
 
     def Locator(self, city, state):
-        """
-        Builds graph and obtains location
-
-        Args:
-        city,
-        state
-
-        Returns:
-        graph- for the city and state
-        loc- 
-
-        """
-
         my_google_elevation_api_key = '<your_api_key>'
         query = {'city': city, 'state': state, 'country': 'USA'}
         graph1 = ox.graph_from_place(query, network_type='drive')
+        # graph_proj = ox.project_graph(graph1)
+        # fig, ax = ox.plot_graph(graph1)
         loc = Nominatim(user_agent="GetLoc")
         return loc, graph1
 
     def Cordinates(self, loc, start, end):
-        """
-        Finds starting location's latitude and longitude and ending location's  latitude and longitude
-        
-        Args:
-        loc,
-        starting location,
-        ending location
-
-        Returns:
-        start_latitude, 
-        start_longitude, 
-        end_latitude, 
-        end_longitude
-
-        """
-
         # start latitue and longitude
         start_loc = loc.geocode(start)
-        print("start location",start_loc)
         # end latitude and longitude
         end_loc = loc.geocode(end)
-        print("end location",end_loc)
         if start_loc is None or end_loc is None:
             return "misspelled address"
         start_latitude = start_loc.latitude
@@ -81,8 +52,8 @@ class Model:
         # Obtaining the nearest nodes from the graph(Geo Data) for that location
         end_N = ox.nearest_nodes(graph1, end_longitude, end_latitude, True)
         start_N = ox.nearest_nodes(graph1, start_longitude, start_latitude, True)
-        # shortest 150 routes
-        route = ox.k_shortest_paths(graph1, start_N[0], end_N[0], 150)
+        # shortest 100 routes
+        route = ox.k_shortest_paths(graph1, start_N[0], end_N[0], 100)
         routes = list()
         for x in route:
             routes.append(x)
@@ -109,6 +80,7 @@ class Model:
             res_byte = fp.read()
             res_str = res_byte.decode("utf8")
             js_str = json.loads(res_str)
+            # print (js_mystr)
             fp.close()
 
             # GETTING ELEVATION
@@ -124,6 +96,9 @@ class Model:
             max_elev = max(elev_list)
             max_ele_gain = max_elev - min_elev
 
+            lat_long[0] = [start_longitude, start_latitude]
+            lat_long[len(lat_long)-1] = [end_longitude, end_latitude]
+
             return graph1, lat_long, max_ele_gain
 
         else:
@@ -131,8 +106,8 @@ class Model:
             # Adjusting k
             if k < 10:
                 k = 10
-            elif k > 140:
-                k = 140
+            elif k > 90:
+                k = 90
             for route in routes[k - 10:k + 10]:
                 lat_long = list()
                 for x in route:
@@ -141,7 +116,7 @@ class Model:
                     longi = n['x']
                     lat_long.append((longi, lat))
                 list_lat_long.append(lat_long)
-            # find elevation gain for all 150 routes
+            # find elevation gain for all 100 routes
             max_ele_gain = -10000000
             for new_list in list_lat_long:
                 # CONSTRUCT JSON
@@ -175,28 +150,18 @@ class Model:
                 if max_elev - min_elev > max_ele_gain:
                     max_ele_gain = max_elev - min_elev
                     lat_long = new_list
+            lat_long[0] = [start_longitude, start_latitude]
+            lat_long[len(lat_long)-1] = [end_longitude, end_latitude]
             return graph1, lat_long, max_ele_gain
 
 
 def Route_Statistics(start, end, k, minimum_elevation):
-    """
-    Returns total distance, maximum elevation gain, and nodes to mark on the map
-
-    Args:
-      start,
-      end,
-      percentage,
-      minimum elevation: True/False
-
-    Returns:
-      lat_long,
-      max_ele_gain,
-      total_distance
-
-    """
-
     city = 'Amherst'
     state = 'Massachusetts'
+    # start = "worcester commons, Amherst, MA"
+    # end = "Boulders, Amherst, MA"
+    # minimum_elevation = False
+    # k = 140
     model = Model(city, state, start, end, k, minimum_elevation)
     result = model.Route(city, state, start, end, k, minimum_elevation)
     if result == "misspelled address":
@@ -206,5 +171,7 @@ def Route_Statistics(start, end, k, minimum_elevation):
     for i in lat_long:
         nodes.append(ox.nearest_nodes(graph1, i[0], i[1], True)[0])
     total_distance = ox.utils_graph.get_route_edge_attributes(graph1, nodes, 'length')
-    
+    # print(max_ele_gain)
+    # print(sum(total_distance))
+    # print( total_distance)
     return lat_long, max_ele_gain, sum(total_distance)
