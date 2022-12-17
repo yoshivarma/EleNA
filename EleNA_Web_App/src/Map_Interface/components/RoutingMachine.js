@@ -17,7 +17,7 @@ const createRoutineMachineLayer = (props) => {
         addWaypoints: true,
         enableHighAccuracy: true,
         startIcon: L.icon({
-            iconUrl: '/marker7.png',
+            iconUrl: '/marker7.jpeg',
             iconSize: [30, 30]
         }),
         endIcon: L.icon({
